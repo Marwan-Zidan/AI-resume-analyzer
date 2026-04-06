@@ -26,9 +26,9 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const {init} = usePuterStore();
+  const { init } = usePuterStore();
   useEffect(() => {
-    init()
+    init();
   }, [init]);
   return (
     <html lang="en">
@@ -39,7 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-            <script src="https://js.puter.com/v2/"></script>
+        <script src="https://js.puter.com/v2/"></script>
 
         {children}
         <ScrollRestoration />
@@ -61,9 +61,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? "404" : "Error";
     details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+      error.status === 404 ? "The requested page could not be found." : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
