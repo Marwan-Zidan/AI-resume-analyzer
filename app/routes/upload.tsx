@@ -10,6 +10,13 @@ const upload = () => {
   }
   const handelSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget.closest("form");
+    if (!form) return;
+    const formData = new FormData(form);
+    const companyName = formData.get("company-name") ;
+    const jobTitle = formData.get("job-title") ;
+    const jobDescription = formData.get("job-description") ;
+    console.log({companyName, jobTitle, jobDescription, file});
   };
   return (
     <main className="bg-[url('/images/bg-main.svg')] bg-cover">
@@ -43,7 +50,7 @@ const upload = () => {
                 <label htmlFor="uploader">Upload Resume</label>
                   <FileUploader onFileSelect={handelFileSelect}/>
               </div>
-              <button type="submit" className="primary-button">Submit</button>
+              <button type="submit" className="primary-button">Analyze Resume</button>
             </form>
           )}
           
