@@ -1,7 +1,8 @@
 import { type FormEvent, useState  } from "react";
 import Navbar from "../components/Navbar";
+import FileUploader from "~/components/FileUploader";
 const upload = () => {
-  const [isprocessing, setIsProcessing] = useState( false);
+  const [isprocessing, setIsProcessing] = useState(false);
   const [statusText, setStatusText] = useState("");
   const handelSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ const upload = () => {
               </div>
               <div className="form-div">
                 <label htmlFor="uploader">Upload Resume</label>
-                <div>Uploader</div>
+                  <FileUploader/>
               </div>
               <button type="submit" className="primary-button">Submit</button>
             </form>
