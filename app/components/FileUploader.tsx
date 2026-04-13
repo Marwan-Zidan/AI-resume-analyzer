@@ -18,12 +18,14 @@ const FileUploader = ({onFileSelect}:fileUploaderProps) => {
     onFileSelect?.(null);
   }, [onFileSelect]);
 
-  const {getRootProps, getInputProps, isDragActive , acceptedFiles} = useDropzone({onDrop, multiple: false,
-  accept: {
-    'application/pdf': ['.pdf'],
-    'application/msword': ['.doc', '.docx']
-  }, maxSize: 20 * 1024 * 1024
-});
+  const {getRootProps, getInputProps} = useDropzone({
+    onDrop,
+    multiple: false,
+    accept: {
+      'application/pdf': ['.pdf']
+    },
+    maxSize: 20 * 1024 * 1024
+  });
 const file = selectedFile;
   return (
     <div className='w-full gradient-border'>
@@ -53,7 +55,7 @@ const file = selectedFile;
               </span> or drag and drop 
             </p>
             <p className='text-lg text-gray-500 '>
-              PDF(max 20 MB) PDF, DOC, DOCX
+              PDF (max 20 MB)
             </p>
       </div>)}
     </div>
