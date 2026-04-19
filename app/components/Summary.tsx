@@ -1,6 +1,7 @@
-import React from 'react'
 import ScoreGauge from './ScoreGauge';
-import ScoreBadge from './ScoreBadge';
+import ScoreBadge from './ScoreBadge';  
+
+
 const Category = ({title , score}: {title: string, score: number})=>{
   const textColor = score > 70 ? 'text-green-600' : score > 49 ? 'text-yellow-600' : 'text-red-600';
   return (
@@ -27,10 +28,10 @@ const Summary = ({feedback}: {feedback: Feedback}) => {
           <p className=' text-sm text-gray-600 '>Your resume's overall score based on ATS compatibility, content quality, and formatting.</p>
         </div>
       </div>
-      <Category title="Tone & Style" score={feedback.ToneAndStyle.score} />
-      <Category title="Content" score={feedback.Contenent.score} />
-      <Category title="Structure" score={feedback.Structure.score} />
-      <Category title="Skills " score={feedback.Skills.score} />
+      <Category title="Tone & Style" score={feedback.toneAndStyle.score} />
+      <Category title="Content" score={feedback.content.score} />
+      <Category title="Structure" score={feedback.structure.score} />
+      <Category title="Skills " score={feedback.skills.score} />
     </div>
   )
 }
