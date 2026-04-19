@@ -9,7 +9,7 @@ const Category = ({title , score}: {title: string, score: number})=>{
           <div className='category'>
             <div className='flex flex-row items-center gap-2 justify-center'>
               <p className='text-2xl'>{title}</p>
-              <ScoreGauge score={score} />
+              <ScoreBadge score={score} />
             </div>
             <p className='text-2xl'>
               <span className={textColor}>{score}</span> / 100
