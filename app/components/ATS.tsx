@@ -3,7 +3,6 @@ import React from 'react'
 interface Suggestion {
   type: "good" | "improve";
   tip: string;
-  explanation?: string;
 }
 
 interface ATSProps {
@@ -33,9 +32,6 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
       ? 'Good Start'
       : 'Needs Improvement';
 
-  const goodSuggestions = suggestions.filter(s => s.type === "good");
-  const improveSuggestions = suggestions.filter(s => s.type === "improve");
-
   return (
     <div className={`bg-gradient-to-b ${gradientClass} to-white rounded-2xl shadow-md w-full p-6`}>
       {/* Top section with icon and headline */}
@@ -49,67 +45,29 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
       {/* Description section */}
       <div className="mb-6">
         <h3 className="text-xl font-semibold mb-2">{subtitle}</h3>
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-600 mb-4">
           This score represents how well your resume is likely to perform in Applicant Tracking Systems used by employers.
         </p>
 
-        {/* Good Suggestions */}
-        {goodSuggestions.length > 0 && (
-          <div className="mb-6">
-            <h4 className="text-lg font-semibold text-green-700 mb-3 flex items-center gap-2">
-              <img src="/icons/check.svg" alt="good" className="size-5" />
-              Strengths
-            </h4>
-            <div className="space-y-2">
-              {goodSuggestions.map((suggestion, index) => (
-                <div key={index} className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
-                  <img
-                    src="/icons/check.svg"
-                    alt="Check"
-                    className="w-5 h-5 mt-0.5 flex-shrink-0"
-                  />
-                  <div>
-                    <p className="text-sm font-semibold text-green-700">{suggestion.tip}</p>
-                    {suggestion.explanation && (
-                      <p className="text-xs text-green-600 mt-1">{suggestion.explanation}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
+        {/* Suggestions list */}
+        <div className="space-y-3">
+          {suggestions.map((suggestion, index) => (
+            <div key={index} className="flex items-start gap-3">
+              <img
+                src={suggestion.type === "good" ? "/icons/check.svg" : "/icons/warning.svg"}
+                alt={suggestion.type === "good" ? "Check" : "Warning"}
+                className="w-5 h-5 mt-1"
+              />
+              <p className={suggestion.type === "good" ? "text-green-700" : "text-amber-700"}>
+                {suggestion.tip}
+              </p>
             </div>
-          </div>
-        )}
-
-        {/* Improve Suggestions */}
-        {improveSuggestions.length > 0 && (
-          <div className="mb-6">
-            <h4 className="text-lg font-semibold text-amber-700 mb-3 flex items-center gap-2">
-              <img src="/icons/warning.svg" alt="improve" className="size-5" />
-              Areas to Improve
-            </h4>
-            <div className="space-y-2">
-              {improveSuggestions.map((suggestion, index) => (
-                <div key={index} className="flex items-start gap-3 p-3 bg-amber-50 rounded-lg border border-amber-200">
-                  <img
-                    src="/icons/warning.svg"
-                    alt="Warning"
-                    className="w-5 h-5 mt-0.5 flex-shrink-0"
-                  />
-                  <div>
-                    <p className="text-sm font-semibold text-amber-700">{suggestion.tip}</p>
-                    {suggestion.explanation && (
-                      <p className="text-xs text-amber-600 mt-1">{suggestion.explanation}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+          ))}
+        </div>
       </div>
 
       {/* Closing encouragement */}
-      <p className="text-gray-700 italic text-sm">
+      <p className="text-gray-700 italic">
         Keep refining your resume to improve your chances of getting past ATS filters and into the hands of recruiters.
       </p>
     </div>
