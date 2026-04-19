@@ -28,10 +28,10 @@ const Summary = ({feedback}: {feedback: Feedback}) => {
           <p className=' text-sm text-gray-600 '>Your resume's overall score based on ATS compatibility, content quality, and formatting.</p>
         </div>
       </div>
-      <Category title="Tone & Style" score={feedback.toneAndStyle.score} />
-      <Category title="Content" score={feedback.content.score} />
-      <Category title="Structure" score={feedback.structure.score} />
-      <Category title="Skills " score={feedback.skills.score} />
+      <Category title="Tone & Style" score={feedback?.toneAndStyle?.score} />
+      <Category title="Content" score={feedback?.content?.score} />
+      <Category title="Structure" score={feedback?.structure?.score} />
+      <Category title="Skills " score={feedback?.skills?.score} />
     </div>
   )
 }
