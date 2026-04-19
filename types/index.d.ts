@@ -13,7 +13,7 @@ interface Resume {
   resumePath: string;
   feedback: Feedback;
 }
-
+  
 interface Feedback {
   overallScore: number;
   ATS: {

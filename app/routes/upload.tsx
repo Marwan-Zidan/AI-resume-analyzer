@@ -43,12 +43,20 @@ const upload = () => {
 
         setStatusText('Preparing data...');
         const uuid = generateUUID();
+        const defaultFeedback = {
+            overallScore: 0,
+            ATS: { score: 0, tips: [] },
+            toneAndStyle: { score: 0, tips: [] },
+            content: { score: 0, tips: [] },
+            structure: { score: 0, tips: [] },
+            skills: { score: 0, tips: [] },
+        };
         const data = {
             id: uuid,
             resumePath: uploadedFile.path,
             imagePath: uploadedImage.path,
             companyName, jobTitle, jobDescription,
-            feedback: '',
+            feedback: defaultFeedback,
         }
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
 

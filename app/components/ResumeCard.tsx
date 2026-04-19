@@ -26,14 +26,14 @@ return (
                     {!companyName && !jobTitle && <h2 className="!text-black font-bold">Resume</h2>}
                 </div>
                 <div className="flex-shrink-0">
-                    <ScoreCircle score={feedback.overallScore} />
+                    <ScoreCircle score={feedback?.overallScore || 0} />
                 </div>
             </div>
             {resumesUrl && (
                 <div className="gradient-border animate-in fade-in duration-1000">
                     <div className="w-full h-full">
                         <img
-                            src={ imagePath }
+                            src={resumesUrl}
                             alt="resume"
                             className="w-full h-[350px] max-sm:h-[200px] object-cover object-top"
                         />
