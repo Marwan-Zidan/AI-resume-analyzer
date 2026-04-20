@@ -62,7 +62,7 @@ const CategoryContent = ({
   return (
       <div className="flex flex-col gap-4 items-center w-full">
         <div className="bg-gray-50 w-full rounded-lg px-5 py-4 grid grid-cols-2 gap-4">
-          {tips?.map((tip, index) => (
+          {tips.map((tip, index) => (
               <div className="flex flex-row gap-2 items-center" key={index}>
                 <img
                     src={
@@ -109,7 +109,7 @@ const CategoryContent = ({
 const Details = ({ feedback }: { feedback: Feedback }) => {
   return (
       <div className="flex flex-col gap-4 w-full">
-        <Accordion defaultOpen={['tone-style', 'content', 'structure', 'skills']} allowMultiple>
+        <Accordion>
           <AccordionItem id="tone-style">
             <AccordionHeader itemId="tone-style">
               <CategoryHeader

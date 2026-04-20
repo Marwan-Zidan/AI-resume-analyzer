@@ -1,22 +1,25 @@
-import { cn } from "~/lib/utils";
-
 interface ScoreBadgeProps {
   score: number;
 }
 
 const ScoreBadge: React.FC<ScoreBadgeProps> = ({ score }) => {
+  let badgeColor = '';
+  let badgeText = '';
+
+  if (score > 70) {
+    badgeColor = 'bg-badge-green text-green-600';
+    badgeText = 'Strong';
+  } else if (score > 49) {
+    badgeColor = 'bg-badge-yellow text-yellow-600';
+    badgeText = 'Good Start';
+  } else {
+    badgeColor = 'bg-badge-red text-red-600';
+    badgeText = 'Needs Work';
+  }
+
   return (
-    <div
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium",
-        score > 70
-          ? "bg-badge-green text-badge-green-text"
-          : score > 49
-            ? "bg-badge-yellow text-badge-yellow-text"
-            : "bg-badge-red text-badge-red-text"
-      )}
-    >
-      {score > 70 ? "Strong" : score > 49 ? "Good Start" : "Needs Work"}
+    <div className={`px-3 py-1 rounded-full ${badgeColor}`}>
+      <p className="text-sm font-medium">{badgeText}</p>
     </div>
   );
 };

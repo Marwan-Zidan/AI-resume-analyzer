@@ -1,5 +1,4 @@
 import React from 'react'
-import { cn } from '~/lib/utils';
 
 interface Suggestion {
   type: "good" | "improve";
@@ -12,20 +11,19 @@ interface ATSProps {
 }
 
 const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
-  // Determine colors - using soft/pink tones for all
-  const bgClass = 'bg-rose-50';
-  const borderClass = 'border border-rose-200';
-  const badgeClass = 'bg-rose-100';
-  const iconBgClass = 'bg-rose-200';
-  const textClass = 'text-rose-900';
-  const subtitleClass = 'text-rose-700';
+  // Determine background gradient based on score
+  const gradientClass = score > 69
+    ? 'from-green-100'
+    : score > 49
+      ? 'from-yellow-100'
+      : 'from-red-100';
 
   // Determine icon based on score
   const iconSrc = score > 69
-    ? '/icons/check.svg'
+    ? '/icons/ats-good.svg'
     : score > 49
-      ? '/icons/warning.svg'
-      : '/icons/warning.svg';
+      ? '/icons/ats-warning.svg'
+      : '/icons/ats-bad.svg';
 
   // Determine subtitle based on score
   const subtitle = score > 69
@@ -35,48 +33,43 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
       : 'Needs Improvement';
 
   return (
-    <div className={cn('rounded-[24px] w-full p-6', bgClass, borderClass)}>
+    <div className={`bg-gradient-to-b ${gradientClass} to-white rounded-2xl shadow-md w-full p-6`}>
       {/* Top section with icon and headline */}
       <div className="flex items-center gap-4 mb-6">
-        <div className={cn('rounded-full p-3 flex items-center justify-center', iconBgClass)}>
-          <img src={iconSrc} alt="ATS Score Icon" className="w-6 h-6" />
-        </div>
+        <img src={iconSrc} alt="ATS Score Icon" className="w-12 h-12" />
         <div>
-          <h2 className={cn('text-2xl font-bold', textClass)}>ATS Score - {score}/100</h2>
+          <h2 className="text-2xl font-bold">ATS Score - {score}/100</h2>
         </div>
       </div>
 
       {/* Description section */}
       <div className="mb-6">
-        <h3 className={cn('text-lg font-semibold mb-3', subtitleClass)}>{subtitle}</h3>
-        <p className="text-gray-600 mb-4 text-sm">
+        <h3 className="text-xl font-semibold mb-2">{subtitle}</h3>
+        <p className="text-gray-600 mb-4">
           This score represents how well your resume is likely to perform in Applicant Tracking Systems used by employers.
         </p>
 
-        {/* Suggestions grid */}
-        <div className="grid grid-cols-2 gap-3">
+        {/* Suggestions list */}
+        <div className="space-y-3">
           {suggestions.map((suggestion, index) => (
-            <div
-              key={index}
-              className={cn(
-                'flex items-start gap-2 rounded-xl p-3',
-                suggestion.type === 'good'
-                  ? 'bg-emerald-50 border border-emerald-200'
-                  : 'bg-amber-50 border border-amber-200'
-              )}
-            >
+            <div key={index} className="flex items-start gap-3">
               <img
                 src={suggestion.type === "good" ? "/icons/check.svg" : "/icons/warning.svg"}
                 alt={suggestion.type === "good" ? "Check" : "Warning"}
-                className="w-4 h-4 mt-0.5 flex-shrink-0"
+                className="w-5 h-5 mt-1"
               />
-              <p className={cn('text-xs', suggestion.type === "good" ? "text-emerald-700" : "text-amber-700")}>
+              <p className={suggestion.type === "good" ? "text-green-700" : "text-amber-700"}>
                 {suggestion.tip}
               </p>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Closing encouragement */}
+      <p className="text-gray-700 italic">
+        Keep refining your resume to improve your chances of getting past ATS filters and into the hands of recruiters.
+      </p>
     </div>
   )
 }
