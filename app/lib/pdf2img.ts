@@ -4,20 +4,21 @@ export interface PdfConversionResult {
     error?: string;
 }
 
-import pdfWorkerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?url";
-
 let pdfjsLib: any = null;
+let isLoading = false;
 let loadPromise: Promise<any> | null = null;
 
 async function loadPdfJs(): Promise<any> {
     if (pdfjsLib) return pdfjsLib;
     if (loadPromise) return loadPromise;
 
+    isLoading = true;
     // @ts-expect-error - pdfjs-dist/build/pdf.mjs is not a module
     loadPromise = import("pdfjs-dist/build/pdf.mjs").then((lib) => {
-        // Keep worker and runtime on the same pdfjs-dist version.
-        lib.GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
+        // Set the worker source to use local file
+        lib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
         pdfjsLib = lib;
+        isLoading = false;
         return lib;
     });
 
@@ -28,16 +29,6 @@ export async function convertPdfToImage(
     file: File
 ): Promise<PdfConversionResult> {
     try {
-        const fileName = file.name.toLowerCase();
-        const isPdf = file.type === "application/pdf" || fileName.endsWith(".pdf");
-        if (!isPdf) {
-            return {
-                imageUrl: "",
-                file: null,
-                error: "Only PDF files are supported.",
-            };
-        }
-
         const lib = await loadPdfJs();
 
         const arrayBuffer = await file.arrayBuffer();
@@ -85,11 +76,10 @@ export async function convertPdfToImage(
             ); // Set quality to maximum (1.0)
         });
     } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : String(err);
         return {
             imageUrl: "",
             file: null,
-            error: `Failed to convert PDF: ${errorMessage}`,
+            error: `Failed to convert PDF: ${err}`,
         };
     }
 }
