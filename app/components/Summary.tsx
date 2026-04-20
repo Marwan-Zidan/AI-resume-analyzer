@@ -1,5 +1,7 @@
 import ScoreGauge from "~/components/ScoreGauge";
 import ScoreBadge from "~/components/ScoreBadge";
+import { getFeedbackSections } from "~/lib/feedback";
+import { cn } from "~/lib/utils";
 
 const Category = ({ title, score }: { title: string, score: number }) => {
     const textColor = score > 70 ? 'text-green-600'
@@ -7,38 +9,39 @@ const Category = ({ title, score }: { title: string, score: number }) => {
         ? 'text-yellow-600' : 'text-red-600';
 
     return (
-        <div className="resume-summary">
-            <div className="category">
-                <div className="flex flex-row gap-2 items-center justify-center">
-                    <p className="text-2xl">{title}</p>
-                    <ScoreBadge score={score} />
-                </div>
-                <p className="text-2xl">
-                    <span className={textColor}>{score}</span>/100
-                </p>
+        <div className="score-list-row border-b border-slate-100 last:border-b-0">
+            <div className="score-list-label">
+                <span className="truncate">{title}</span>
+                <ScoreBadge score={score} />
             </div>
+            <p className={cn("score-list-value", textColor)}>
+                {score}/100
+            </p>
         </div>
     )
 }
 
 const Summary = ({ feedback }: { feedback: Feedback }) => {
+    const sections = getFeedbackSections(feedback);
+
     return (
-        <div className="bg-white rounded-2xl shadow-md w-full">
-            <div className="flex flex-row items-center p-4 gap-8">
-                <ScoreGauge score={feedback.overallScore} />
+        <div className="score-card">
+            <div className="score-card-header">
+                <ScoreGauge score={feedback?.overallScore ?? 0} />
 
                 <div className="flex flex-col gap-2">
-                    <h2 className="text-2xl font-bold">Your Resume Score</h2>
-                    <p className="text-sm text-gray-500">
+                    <h2 className="text-2xl font-bold text-slate-900">Your Resume Score</h2>
+                    <p className="max-w-[420px] text-sm text-slate-500">
                         This score is calculated based on the variables listed below.
                     </p>
                 </div>
             </div>
 
-            <Category title="Tone & Style" score={feedback?.toneAndStyle?.score} />
-            <Category title="Content" score={feedback?.content?.score} />
-            <Category title="Structure" score={feedback?.structure?.score} />
-            <Category title="Skills" score={feedback?.skills?.score} />
+            <div>
+              {sections.map((section) => (
+                  <Category key={section.id} title={section.title} score={section.score} />
+              ))}
+            </div>
         </div>
     )
 }

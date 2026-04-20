@@ -69,12 +69,52 @@ form {
     @apply flex flex-row justify-between items-center p-4 border-b border-gray-200;
   }
 
-  .resume-summary {
-    @apply flex flex-row items-center justify-center p-4 gap-4;
+  .resume-review-layout {
+    @apply mx-auto flex w-full max-w-[1500px] gap-8 px-4 pb-10 pt-6 max-lg:flex-col max-lg:gap-6;
+  }
 
-    .category {
-      @apply flex flex-row gap-2 items-center bg-gray-50 rounded-2xl p-4 w-full justify-between;
-    }
+  .resume-preview-panel {
+    @apply sticky top-6 flex h-[calc(100vh-6rem)] w-[43%] items-center justify-center rounded-[28px] bg-[linear-gradient(180deg,#f6f0ff_0%,#f7f7ff_47%,#fff1f4_100%)] p-4 max-lg:static max-lg:h-auto max-lg:w-full;
+  }
+
+  .resume-preview-card {
+    @apply h-full w-full overflow-hidden rounded-[24px] border border-white/80 bg-white/90 p-4 shadow-[0_20px_80px_rgba(168,85,247,0.12)];
+  }
+
+  .resume-preview-image {
+    @apply h-full w-full rounded-[18px] object-contain object-top;
+  }
+
+  .resume-review-panel {
+    @apply flex w-[57%] flex-col gap-5 max-lg:w-full;
+  }
+
+  .resume-review-title {
+    @apply text-[2rem] font-bold tracking-[-0.02em] text-slate-900 max-sm:text-3xl;
+  }
+
+  .score-card {
+    @apply overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)];
+  }
+
+  .score-card-header {
+    @apply flex flex-col gap-6 border-b border-slate-100 p-6 md:flex-row md:items-center md:gap-8;
+  }
+
+  .score-list-row {
+    @apply flex items-center justify-between gap-4 px-5 py-3.5;
+  }
+
+  .score-list-label {
+    @apply flex items-center gap-3 text-base font-medium text-slate-900;
+  }
+
+  .score-list-value {
+    @apply shrink-0 text-sm font-semibold text-slate-500;
+  }
+
+  .score-badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium;
   }
 
   .back-button {
@@ -107,6 +147,42 @@ form {
 
   .feedback-section {
     @apply flex flex-col gap-8 w-1/2 px-8 max-lg:w-full py-6;
+  }
+
+  .review-section-card {
+    @apply rounded-[24px] border border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)];
+  }
+
+  .section-card-header {
+    @apply flex items-center justify-between gap-4 px-5 py-4;
+  }
+
+  .section-chip-grid {
+    @apply grid grid-cols-2 gap-3 max-sm:grid-cols-1;
+  }
+
+  .section-chip {
+    @apply flex items-start gap-2 rounded-2xl border px-3 py-3 text-sm;
+  }
+
+  .section-chip.good {
+    @apply border-emerald-200 bg-emerald-50 text-emerald-700;
+  }
+
+  .section-chip.improve {
+    @apply border-amber-200 bg-amber-50 text-amber-700;
+  }
+
+  .section-detail-card {
+    @apply flex flex-col gap-2 rounded-2xl border p-4;
+  }
+
+  .section-detail-card.good {
+    @apply border-emerald-200 bg-emerald-50 text-emerald-700;
+  }
+
+  .section-detail-card.improve {
+    @apply border-amber-200 bg-amber-50 text-amber-700;
   }
 
   .navbar {

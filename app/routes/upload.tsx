@@ -6,6 +6,7 @@ import {useNavigate} from "react-router";
 import { convertPdfToImage } from "~/lib/pdf2img";
 import { generateUUID } from "~/lib/utils";
 import { prepareInstructions } from "../../constants";
+import { normalizeFeedback } from "~/lib/feedback";
 
 
 const upload = () => {
@@ -72,7 +73,7 @@ const upload = () => {
             ? feedback.message.content
             : feedback.message.content[0].text;
 
-        data.feedback = JSON.parse(feedbackText);
+        data.feedback = normalizeFeedback(JSON.parse(feedbackText));
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
         setStatusText('Analysis complete, redirecting...');
         console.log(data);

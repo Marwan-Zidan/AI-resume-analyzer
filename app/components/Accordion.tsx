@@ -22,7 +22,7 @@ const useAccordion = () => {
 
 interface AccordionProps {
     children: ReactNode;
-    defaultOpen?: string;
+    defaultOpen?: string | string[];
     allowMultiple?: boolean;
     className?: string;
 }
@@ -34,7 +34,11 @@ allowMultiple = false,
 className = "",
 }) => {
     const [activeItems, setActiveItems] = useState<string[]>(
-        defaultOpen ? [defaultOpen] : []
+        Array.isArray(defaultOpen)
+            ? defaultOpen
+            : defaultOpen
+                ? [defaultOpen]
+                : []
     );
 
     const toggleItem = (id: string) => {

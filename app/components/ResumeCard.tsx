@@ -2,10 +2,12 @@ import { Link } from "react-router";
 import ScoreCircle from './ScoreCircle';
 import { useEffect, useState } from "react";
 import { usePuterStore } from "~/lib/Puter";
+import { normalizeFeedback } from "~/lib/feedback";
 
 const ResumeCard = ({resume : {id, companyName, jobTitle , imagePath, feedback }} :  { resume : Resume } ) => {
  const { fs } = usePuterStore();
  const [resumesUrl, setResumesUrl] = useState('');
+ const [normalizedFeedback, setNormalizedFeedback] = useState<Feedback | null>(null);
 
  useEffect(() => {
   const loadResume = async () =>{
@@ -13,10 +15,17 @@ const ResumeCard = ({resume : {id, companyName, jobTitle , imagePath, feedback }
     if(!blob) return;
     let imageUrl = URL.createObjectURL(blob);
     setResumesUrl(imageUrl);
-
   }
   loadResume();
 }, [imagePath]);
+
+ useEffect(() => {
+  if (feedback) {
+    const normalized = normalizeFeedback(feedback);
+    setNormalizedFeedback(normalized);
+  }
+ }, [feedback]);
+
 return (
 <Link to={`/resume/${id}`} className="resume-card animate-in fade-in duration-1000">
             <div className="resume-card-header">
@@ -26,7 +35,7 @@ return (
                     {!companyName && !jobTitle && <h2 className="!text-black font-bold">Resume</h2>}
                 </div>
                 <div className="flex-shrink-0">
-                    <ScoreCircle score={feedback?.overallScore || 0} />
+                    <ScoreCircle score={normalizedFeedback?.overallScore || 0} />
                 </div>
             </div>
             {resumesUrl && (
