@@ -1,4 +1,4 @@
-import {usePuterStore} from "~/lib/puter";
+import {usePuterStore} from "../lib/Puter";
 import {useEffect} from "react";
 import {useLocation, useNavigate} from "react-router";
 

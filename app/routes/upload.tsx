@@ -1,7 +1,7 @@
 import {type FormEvent, useState} from 'react'
 import Navbar from "~/components/Navbar";
 import FileUploader from "~/components/FileUploader";
-import {usePuterStore} from "~/lib/puter";
+import {usePuterStore} from "../lib/Puter";
 import {useNavigate} from "react-router";
 import {convertPdfToImage} from "~/lib/pdf2img";
 import {generateUUID} from "~/lib/utils";
@@ -48,7 +48,7 @@ const Upload = () => {
 
         const feedback = await ai.feedback(
             uploadedFile.path,
-            prepareInstructions({ jobTitle, jobDescription })
+            prepareInstructions({ jobTitle, jobDescription } as any),
         )
         if (!feedback) return setStatusText('Error: Failed to analyze resume');
 
